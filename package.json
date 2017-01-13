@@ -1,0 +1,18 @@
+{
+  "name": "rangepicker.js",
+  "version": "1.0.0",
+  "description": "range picker component",
+  "main": "src/rangepicker.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "range",
+    "picker"
+  ],
+  "author": "Erik Drobne",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
