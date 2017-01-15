@@ -50,7 +50,7 @@
             item.style.width = itemWidth + 'px';
             item.style.height = this.element.clientHeight + 'px';
             this.rangeItems.push(item);
-            handleRangeItemSelect(item)
+            handleRangeItemSelect(item);
             this.element.appendChild(item);
         }
     }
@@ -88,5 +88,5 @@
         return new RangePicker(element, options);
     }
 
-    return init
+    return init;
 });
