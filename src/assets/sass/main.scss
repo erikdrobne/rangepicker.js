@@ -1,0 +1,11 @@
+.rangepicker {
+    &__item {
+        cursor: pointer;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        transition: background-color .35s ease-in-out;
+        &--selected {
+            background-color: black;
+        }
+    }
+}
