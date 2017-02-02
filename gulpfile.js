@@ -3,10 +3,15 @@ var gulp = require('gulp');
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     rename = require('gulp-rename'),
-    minifyCss = require('gulp-minify-css');
+    minifyCss = require('gulp-minify-css'),
+    webserver = require('gulp-webserver');
 
 var stylesDir = 'src/assets/sass/**/*.scss'
     jsFile = 'src/rangepicker.js';
+
+gulp.task('copy-html', function() {
+    gulp.src('index.html').pipe(gulp.dest('build'));
+});
 
 gulp.task('build-css', function(done) {
     gulp.src(stylesDir)
@@ -29,7 +34,20 @@ gulp.task('build-js', function() {
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('default', ['build-css', 'build-js'], function() {
+gulp.task('webserver', function() {
+    gulp.src('build')
+        .pipe(webserver({
+            directoryListing: {
+                livereload: true,
+                enable: true,
+                path: 'index'
+            },
+            open: true,
+            port: 3002
+        }));
+});
+
+gulp.task('default', ['copy-html', 'build-css', 'build-js', 'webserver'], function() {
     gulp.watch(stylesDir, ['build-css']);
     gulp.watch(jsFile, ['build-js']);
 });
