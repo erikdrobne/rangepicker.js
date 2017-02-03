@@ -41,3 +41,7 @@ Method | Description
 --- | ---
 `setValue(value)` | Set given value. |
 `on(event, handler)` | Adds event listener. |
+
+## Contribution
+
+Feel free to contribute.
