@@ -2,7 +2,7 @@
 
 ## Installation
 
-Pre build files can be found in the /build folder.
+Pre build files can be found in the ```/build``` folder.
 
 Include ```rangepicker.js``` and/or ```rangepicker.css```
 
@@ -12,7 +12,15 @@ Include ```rangepicker.js``` and/or ```rangepicker.css```
 <div id="rangePicker"></div>
 ```
 ```javascript
-var rp = rangepicker(document.getElementById('rangePicker'), options);
+var element = document.getElementById('rangePicker');
+var rp = rangepicker(element, options);
 ```
 
 ## API
+
+### Properties
+
+Property | Description
+--- | ---
+`element` | Element where you would like to initialize ```rangepicker.js``` |
+`options` | An object containing configuration options |
