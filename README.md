@@ -1,5 +1,7 @@
 # rangepicker.js
 
+![rangepicker.js](rangepicker.png)
+
 ## Installation
 
 Pre build files can be found in the ```/build``` folder.
@@ -33,7 +35,7 @@ Option | Description
 
 ### Methods
 
-Usage: ```javascript rp.methodName() ```
+Usage: ```rp.methodName()```
 
 Method | Description
 --- | ---
