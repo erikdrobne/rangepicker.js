@@ -8,7 +8,6 @@
     }
 })(typeof global !== 'undefined' ? global : this.window || this.global, function (win) {
     var defaults = {
-        height: 100,
         range: {
             size: 10,
             step: 10,
@@ -38,7 +37,6 @@
         this.element.classList.add(this.constants.classes.rangepicker);
 
         privateMethods.renderRangeValue = privateMethods.renderRangeValue.bind(this);
-        privateMethods.setRangePickerStyle.call(this);
         privateMethods.renderRangeItems.call(this);
         privateMethods.renderRangeValue();
         privateMethods.handleTouchSelect.call(this);
@@ -52,7 +50,6 @@
     };
 
     var privateMethods = {
-        setRangePickerStyle: setRangePickerStyle,
         renderRangeItems: renderRangeItems,
         renderRangeValue: renderRangeValue,
         handleSelect: handleSelect,
@@ -63,14 +60,16 @@
         }
     };
 
-    function setRangePickerStyle() {
-        this.element.style.height = this.options.height + "px";
-    }
-
     function renderRangeItems() {
         var i,
             item,
             itemWidth = this.element.clientWidth / this.options.range.size;
+
+        if(this.options.hasOwnProperty('height')) {
+            this.element.style.height = this.options.height + "px";
+        } else {
+            this.element.style.height = itemWidth + 'px';
+        }
 
         for(i=0; i<this.options.range.size; i++) {
             item = document.createElement('div');
@@ -139,6 +138,12 @@
         }.bind(this));
     }
 
+    /**
+     * get value change event
+     *
+     * @param  {Number} value
+     * @return {CustomEvent}
+     */
     function getChangeEvent(value) {
         return new CustomEvent(
             constants.events.onChange, {

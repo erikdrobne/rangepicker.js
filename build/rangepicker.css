@@ -1,1 +1,1 @@
-.rangepicker__item{cursor:pointer;box-sizing:border-box;border:1px solid #ccc;transition:background-color .35s ease-in-out}.rangepicker__item--selected{background-color:#000}
+.rangepicker{border:4px solid #000;box-sizing:border-box}.rangepicker__item{cursor:pointer;box-sizing:border-box;transition:background-color .1s ease-in-out}.rangepicker__item:not(:last-child){border-right:4px solid #000}.rangepicker__item--selected{background-color:#9BEEE1}

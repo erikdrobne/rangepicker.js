@@ -1,11 +1,15 @@
 .rangepicker {
+    border: 4px solid #000;
+    box-sizing: border-box;
     &__item {
         cursor: pointer;
         box-sizing: border-box;
-        border: 1px solid #ccc;
-        transition: background-color .35s ease-in-out;
+        transition: background-color .1s ease-in-out;
+        &:not(:last-child) {
+            border-right: 4px solid #000;
+        }
         &--selected {
-            background-color: black;
+            background-color: #9BEEE1;
         }
     }
 }
