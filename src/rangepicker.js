@@ -26,6 +26,11 @@
         }
     };
 
+    /**
+     * RangePicker
+     * @param {Object} element
+     * @param {Object} options
+     */
     function RangePicker(element, options) {
         this.element = element;
         this.rangeItems = [];
@@ -49,6 +54,12 @@
         this.element.dispatchEvent(privateMethods.getChangeEvent(range.value));
     };
 
+    RangePicker.prototype.on = function(eventName, handler) {
+        this.element.addEventListener(eventName, function(e) {
+            handler(e.detail.value)
+        });
+    };
+
     var privateMethods = {
         renderRangeItems: renderRangeItems,
         renderRangeValue: renderRangeValue,
@@ -60,6 +71,10 @@
         }
     };
 
+    /**
+     * render range items
+     *
+     */
     function renderRangeItems() {
         var i,
             item,
@@ -84,6 +99,10 @@
         }
     }
 
+    /**
+     * render selected range
+     *
+     */
     function renderRangeValue() {
         var i,
             range = this.options.range,
@@ -104,6 +123,11 @@
         }
     }
 
+    /**
+     * handle mouseclick select
+     *
+     * @param  {Object} rangeItem
+     */
     function handleSelect(rangeItem) {
         rangeItem.addEventListener('mousedown', function(e) {
             var value = parseInt(e.target.getAttribute('data-value')),
@@ -118,6 +142,10 @@
         }.bind(this));
     }
 
+    /**
+     * handle touch select
+     *
+     */
     function handleTouchSelect() {
         var currentElement,
             value = this.options.range.value;
@@ -169,6 +197,13 @@
         return source;
     }
 
+    /**
+     * initialize
+     *
+     * @param  {Object} element
+     * @param  {Object} options
+     * @return {RangePicker}
+     */
     function init(element, options) {
         return new RangePicker(element, options);
     }
