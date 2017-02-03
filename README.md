@@ -33,7 +33,7 @@ Option | Description
 
 ### Methods
 
-Usage: ```javascriptrp.methodName()```
+Usage: ```javascript rp.methodName() ```
 
 Method | Description
 --- | ---
