@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Rangepicker</title>
+    <link rel="stylesheet" type="text/css" href="rangepicker.css">
+</head>
+
+<body>
+    <div id="rangePicker"></div>
+    <script src="rangepicker.js"></script>
+    <script>
+        var rp = rangepicker(document.getElementById('rangePicker'), {});
+
+        rp.on('rp.change', function(value) {
+            console.log(value);
+        });
+    </script>
+</body>
+
+</html>
