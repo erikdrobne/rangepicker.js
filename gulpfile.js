@@ -4,7 +4,8 @@ var gulp = require('gulp');
     autoprefixer = require('gulp-autoprefixer'),
     rename = require('gulp-rename'),
     minifyCss = require('gulp-minify-css'),
-    webserver = require('gulp-webserver');
+    webserver = require('gulp-webserver'),
+    uglify = require('gulp-uglify');
 
 var stylesDir = 'src/assets/sass/**/*.scss'
     jsFile = 'src/rangepicker.js';
@@ -31,7 +32,11 @@ gulp.task('build-js', function() {
         .pipe(jshint({
             lookup: true
         }))
-        .pipe(jshint.reporter('default'));
+        .pipe(jshint.reporter('default'))
+        .pipe(gulp.dest('build'))
+        .pipe(rename('rangepicker.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('build'));
 });
 
 gulp.task('webserver', function() {

@@ -56,7 +56,7 @@
 
     RangePicker.prototype.on = function(eventName, handler) {
         this.element.addEventListener(eventName, function(e) {
-            handler(e.detail.value)
+            handler(e.detail.value);
         });
     };
 
