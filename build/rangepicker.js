@@ -15,10 +15,16 @@
             value: 40
         }
     },
+    namespace = 'rp',
     constants = {
-        className: 'rangepicker',
-        rangeItemClass: 'rangepicker__item',
-        rangeItemSelectedClass: 'rangepicker__item--selected'
+        classes: {
+            rangepicker: 'rangepicker',
+            rangeItem: 'rangepicker__item',
+            rangeItemSelected: 'rangepicker__item--selected'
+        },
+        events: {
+            onChange: namespace + '.change'
+        }
     };
 
     function RangePicker(element, options) {
@@ -29,12 +35,22 @@
             this.options = extendDefaults(defaults, options);
         }
         this.selectedValue = this.options.range.value;
-        this.element.classList.add(this.constants.className);
+        this.element.classList.add(this.constants.classes.rangepicker);
+
+        renderRangeValue = renderRangeValue.bind(this);
 
         setRangePickerStyle.call(this);
         renderRangeItems.call(this);
-        renderRangeValue.call(this);
+        renderRangeValue();
+        handleTouchSelect.call(this);
     }
+
+    RangePicker.prototype.setValue = function(value) {
+        var range = this.options.range;
+        range.value = value;
+        renderRangeValue();
+        this.element.dispatchEvent(getOnChangeEvent(range.value));
+    };
 
     function setRangePickerStyle() {
         this.element.style.height = this.options.height + "px";
@@ -47,8 +63,8 @@
 
         for(i=0; i<this.options.range.size; i++) {
             item = document.createElement('div');
-            item.setAttribute('data-id', i);
-            item.classList.add(this.constants.rangeItemClass);
+            item.setAttribute('data-value', (i + 1) * this.options.range.step);
+            item.classList.add(this.constants.classes.rangeItem);
             item.style.display = 'inline-block';
             item.style.width = itemWidth + 'px';
             item.style.height = this.element.clientHeight + 'px';
@@ -59,20 +75,36 @@
     }
 
     function handleRangeItemSelect(rangeItem) {
-        rangeItem.addEventListener('mouseover', function(e) {
-            if(e.which === 1) {
-                console.log('mouseover', e.which);
-            }
-        });
         rangeItem.addEventListener('mousedown', function(e) {
-            var index = parseInt(e.target.getAttribute('data-id')),
+            var value = parseInt(e.target.getAttribute('data-value')),
                 range = this.options.range;
-            if(index === 0 && range.value === range.step) {
-                range.value = 0;
+            if(value === range.step && range.value === range.step) {
+                this.setValue(0);
             } else {
-                range.value = (index + 1) * range.step;
+                if(value !== range.value) {
+                    this.setValue(value);
+                }
             }
-            renderRangeValue.call(this);
+        }.bind(this));
+    }
+
+    function handleTouchSelect() {
+        var currentElement,
+            value = this.options.range.value;
+        this.element.addEventListener('touchmove', function(e) {
+            currentElement = document.elementFromPoint(
+                e.touches[0].clientX,
+                e.touches[0].clientY
+            );
+
+            if(currentElement) {
+                if(currentElement.classList.contains(this.constants.classes.rangeItem)) {
+                    value = parseInt(currentElement.getAttribute('data-value'));
+                    if(this.options.range.value !== value) {
+                        this.setValue(value);
+                    }
+                }
+            }
         }.bind(this));
     }
 
@@ -86,14 +118,22 @@
             rangeItem = this.rangeItems[i];
             if(i<=index) {
                 rangeItem.classList.add(
-                    this.constants.rangeItemSelectedClass
+                    this.constants.classes.rangeItemSelected
                 );
             } else {
                 rangeItem.classList.remove(
-                    this.constants.rangeItemSelectedClass
+                    this.constants.classes.rangeItemSelected
                 );
             }
         }
+    }
+
+    function getOnChangeEvent(value) {
+        return new CustomEvent(
+            constants.events.onChange, {
+                detail: { value: value }
+            }
+        );
     }
 
     /**
