@@ -32,24 +32,35 @@
         this.rangeItems = [];
         this.constants = constants;
         if (options && typeof options === 'object') {
-            this.options = extendDefaults(defaults, options);
+            this.options = privateMethods.helpers.extendDefaults(defaults, options);
         }
         this.selectedValue = this.options.range.value;
         this.element.classList.add(this.constants.classes.rangepicker);
 
-        renderRangeValue = renderRangeValue.bind(this);
-
-        setRangePickerStyle.call(this);
-        renderRangeItems.call(this);
-        renderRangeValue();
-        handleTouchSelect.call(this);
+        privateMethods.renderRangeValue = privateMethods.renderRangeValue.bind(this);
+        privateMethods.setRangePickerStyle.call(this);
+        privateMethods.renderRangeItems.call(this);
+        privateMethods.renderRangeValue();
+        privateMethods.handleTouchSelect.call(this);
     }
 
     RangePicker.prototype.setValue = function(value) {
         var range = this.options.range;
         range.value = value;
-        renderRangeValue();
-        this.element.dispatchEvent(getOnChangeEvent(range.value));
+        privateMethods.renderRangeValue();
+        this.element.dispatchEvent(privateMethods.getChangeEvent(range.value));
+    };
+
+    var privateMethods = {
+        setRangePickerStyle: setRangePickerStyle,
+        renderRangeItems: renderRangeItems,
+        renderRangeValue: renderRangeValue,
+        handleSelect: handleSelect,
+        handleTouchSelect: handleTouchSelect,
+        getChangeEvent: getChangeEvent,
+        helpers: {
+            extendDefaults: extendDefaults
+        }
     };
 
     function setRangePickerStyle() {
@@ -69,12 +80,32 @@
             item.style.width = itemWidth + 'px';
             item.style.height = this.element.clientHeight + 'px';
             this.rangeItems.push(item);
-            handleRangeItemSelect.call(this, item);
+            privateMethods.handleSelect.call(this, item);
             this.element.appendChild(item);
         }
     }
 
-    function handleRangeItemSelect(rangeItem) {
+    function renderRangeValue() {
+        var i,
+            range = this.options.range,
+            index = parseInt(range.value/range.step) - 1,
+            rangeItem;
+
+        for(i=0; i<this.rangeItems.length; i++) {
+            rangeItem = this.rangeItems[i];
+            if(i<=index) {
+                rangeItem.classList.add(
+                    this.constants.classes.rangeItemSelected
+                );
+            } else {
+                rangeItem.classList.remove(
+                    this.constants.classes.rangeItemSelected
+                );
+            }
+        }
+    }
+
+    function handleSelect(rangeItem) {
         rangeItem.addEventListener('mousedown', function(e) {
             var value = parseInt(e.target.getAttribute('data-value')),
                 range = this.options.range;
@@ -108,27 +139,7 @@
         }.bind(this));
     }
 
-    function renderRangeValue() {
-        var i,
-            range = this.options.range,
-            index = parseInt(range.value/range.step) - 1,
-            rangeItem;
-
-        for(i=0; i<this.rangeItems.length; i++) {
-            rangeItem = this.rangeItems[i];
-            if(i<=index) {
-                rangeItem.classList.add(
-                    this.constants.classes.rangeItemSelected
-                );
-            } else {
-                rangeItem.classList.remove(
-                    this.constants.classes.rangeItemSelected
-                );
-            }
-        }
-    }
-
-    function getOnChangeEvent(value) {
+    function getChangeEvent(value) {
         return new CustomEvent(
             constants.events.onChange, {
                 detail: { value: value }
