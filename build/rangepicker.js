@@ -12,12 +12,14 @@
             size: 10,
             step: 10,
             value: 40
-        }
+        },
+        disabled: false
     },
     namespace = 'rp',
     constants = {
         classes: {
             rangepicker: 'rangepicker',
+            rangepickerDisabled: 'rangepicker--disabled',
             rangeItem: 'rangepicker__item',
             rangeItemSelected: 'rangepicker__item--selected'
         },
@@ -42,6 +44,7 @@
         this.element.classList.add(this.constants.classes.rangepicker);
 
         privateMethods.renderRangeValue = privateMethods.renderRangeValue.bind(this);
+        privateMethods.setRangePicker.call(this);
         privateMethods.renderRangeItems.call(this);
         privateMethods.renderRangeValue();
         privateMethods.handleTouchSelect.call(this);
@@ -58,6 +61,24 @@
         return this.options.range.value;
     };
 
+    RangePicker.prototype.enable = function() {
+        if(this.options.disabled === true) {
+            this.options.disabled = false;
+            this.element.classList.remove(
+                this.constants.classes.rangepickerDisabled
+            );
+        }
+    };
+
+    RangePicker.prototype.disable = function() {
+        if(this.options.disabled === false) {
+            this.options.disabled = true;
+            this.element.classList.add(
+                this.constants.classes.rangepickerDisabled
+            );
+        }
+    };
+
     RangePicker.prototype.on = function(eventName, handler) {
         this.element.addEventListener(eventName, function(e) {
             handler(e.detail.value);
@@ -65,6 +86,7 @@
     };
 
     var privateMethods = {
+        setRangePicker: setRangePicker,
         renderRangeItems: renderRangeItems,
         renderRangeValue: renderRangeValue,
         handleSelect: handleSelect,
@@ -74,6 +96,14 @@
             extendDefaults: extendDefaults
         }
     };
+
+    function setRangePicker() {
+        if(this.options.disabled === true) {
+            this.element.classList.add(
+                this.constants.classes.rangepickerDisabled
+            );
+        }
+    }
 
     /**
      * render range items
