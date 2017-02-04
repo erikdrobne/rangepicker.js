@@ -54,6 +54,10 @@
         this.element.dispatchEvent(privateMethods.getChangeEvent(range.value));
     };
 
+    RangePicker.prototype.getValue = function() {
+        return this.options.range.value;
+    };
+
     RangePicker.prototype.on = function(eventName, handler) {
         this.element.addEventListener(eventName, function(e) {
             handler(e.detail.value);

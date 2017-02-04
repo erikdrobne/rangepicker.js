@@ -25,7 +25,7 @@ var rp = rangepicker(element, options);
 Property | Description
 --- | ---
 `element` | Element where you would like to initialize ```rangepicker.js```. |
-`options` | An object containing configuration options. Pass ```{}``` for default. |
+`options` | An object containing configuration options. Pass ```{}``` for defaults. |
 
 #### Options
 
@@ -40,6 +40,7 @@ Usage: ```rp.methodName()```
 Method | Description
 --- | ---
 `setValue(value)` | Set given value. |
+`getValue()` | Returns the component current value. |
 `on(event, handler)` | Adds event listener. |
 
 ## Contribution

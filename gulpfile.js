@@ -53,6 +53,7 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('default', ['copy-html', 'build-css', 'build-js', 'webserver'], function() {
+    gulp.watch('index.html', ['copy-html']);
     gulp.watch(stylesDir, ['build-css']);
     gulp.watch(jsFile, ['build-js']);
 });
