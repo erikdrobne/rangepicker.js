@@ -39,7 +39,7 @@ Usage: ```rp.methodName()```
 
 Method | Description
 --- | ---
-`setValue(value)` | Set given value. |
+`setValue(value)` | Sets given value. |
 `getValue()` | Returns the component current value. |
 `on(event, handler)` | Adds event listener. |
 
