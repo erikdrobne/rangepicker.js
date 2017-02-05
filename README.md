@@ -6,6 +6,12 @@
 
 Pre build files can be found in the ```/build``` folder.
 
+```bash
+$ npm install rangepicker.js
+```
+
+or clone repository.
+
 Include ```rangepicker.js``` and(optionally) ```rangepicker.css``` in your project.
 
 ## Usage
