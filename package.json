@@ -1,6 +1,6 @@
 {
   "name": "rangepicker.js",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "range picker component",
   "main": "src/rangepicker.js",
   "scripts": {
