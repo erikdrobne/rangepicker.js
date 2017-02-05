@@ -32,6 +32,7 @@ Property | Description
 Option | Description
 --- | ---
 `range` | An object containing range options. It consists of ```size```, ```step``` and ```value``` parameters. |
+`height` | Component height in px. By default, height will be equal to range item width.
 `disabled` | Default ```false```. If ```true```, component will be disabled.
 
 ### Methods
