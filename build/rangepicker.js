@@ -8,11 +8,7 @@
     }
 })(typeof global !== 'undefined' ? global : this.window || this.global, function (win) {
     var defaults = {
-        range: {
-            size: 10,
-            step: 10,
-            value: 40
-        },
+        range: {},
         orientation: 'horizontal',
         disabled: false
     },
@@ -25,6 +21,7 @@
             rangeItemSelected: 'rangepicker__item--selected'
         },
         events: {
+            initialize: namespace + '.initialize',
             onChange: namespace + '.change'
         }
     };
@@ -44,12 +41,16 @@
         this.selectedValue = this.options.range.value;
         this.element.classList.add(this.constants.classes.rangepicker);
 
+        privateMethods.onInitialize = privateMethods.onInitialize.bind(this);
         privateMethods.renderRangeValue = privateMethods.renderRangeValue.bind(this);
+
+        privateMethods.validateOptions.call(this);
         privateMethods.setRangePicker.call(this);
         privateMethods.setRangeItemSize = privateMethods.setRangeItemSize.call(this);
         privateMethods.renderRangeItems.call(this);
         privateMethods.renderRangeValue();
         privateMethods.handleTouchSelect.call(this);
+        privateMethods.onInitialize();
     }
 
     RangePicker.prototype.setValue = function(value) {
@@ -106,6 +107,8 @@
     };
 
     var privateMethods = {
+        validateOptions: validateOptions,
+        onInitialize: onInitialize,
         setRangeItemSize: setRangeItemSize,
         setRangePicker: setRangePicker,
         renderRangeItems: renderRangeItems,
@@ -117,6 +120,46 @@
             extendDefaults: extendDefaults
         }
     };
+
+    /**
+     * validate component options
+     *
+     */
+    function validateOptions() {
+        var options = this.options;
+        if(!options.range.hasOwnProperty('size')) {
+            throw new Error('range size undefined.');
+        } else if(options.range.size === 0) {
+            throw new Error('invalid range size value.');
+        }
+
+        if(!options.range.hasOwnProperty('step')) {
+            throw new Error('range step undefined.');
+        }
+
+        if(!options.range.hasOwnProperty('value')) {
+            throw new Error('range value undefined.');
+        }
+    }
+
+    /**
+     * eval onInitialize callback
+     *
+     */
+    function onInitialize() {
+        var options = this.options;
+        if(options.hasOwnProperty('onInitialize')) {
+            if(typeof options.onInitialize === 'function') {
+                if(this.element.childElementCount === options.range.size) {
+                    options.onInitialize();
+                } else {
+                    window.requestAnimationFrame(privateMethods.didComponentRender);
+                }
+            } else {
+                throw new Error('onInitialize is not a function');
+            }
+        }
+    }
 
     /**
      * calculate size options

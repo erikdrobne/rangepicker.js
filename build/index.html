@@ -13,7 +13,16 @@
     </div>
     <script src="rangepicker.js"></script>
     <script>
-        var rp = rangepicker(document.getElementById('rangePicker'), {});
+        var rp = rangepicker(document.getElementById('rangePicker'), {
+            range: {
+                size: 10,
+                step: 10,
+                value: 40
+            },
+            onInitialize: function() {
+                console.log('initialize');
+            }
+        });
     </script>
 </body>
 
