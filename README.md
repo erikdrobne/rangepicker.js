@@ -32,7 +32,6 @@ Property | Description
 Option | Description
 --- | ---
 `range` | An object containing range options. It consists of ```size```, ```step``` and ```value``` parameters. |
-`height` | Component height in ```px```. By default, height will be equal to range item width.
 `orientation` | Component orientation. Possible values ```horizontal | vertical```. Default ```horizontal```. |
 `itemHeight` | Range item height in ```px```. It will take effect in ``` horizontal``` mode. |
 `itemWidth` | Range item width in ```px```. It will take effect in ``` vertical``` mode. |
