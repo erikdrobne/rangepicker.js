@@ -1,4 +1,5 @@
 # rangepicker.js
+<a href="https://www.npmjs.com/package/rangepicker.js"><img src="https://img.shields.io/npm/v/rangepicker.js.svg" alt="Version"></a>
 
 ![rangepicker.js](rangepicker.png)
 
