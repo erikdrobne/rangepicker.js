@@ -40,7 +40,7 @@ Option | Description
 `itemHeight` | Range item height in ```px```. It will take effect in ``` horizontal``` mode. |
 `itemWidth` | Range item width in ```px```. It will take effect in ``` vertical``` mode. |
 `disabled` | Default ```false```. If ```true```, component will be disabled.
-`onInitialize` | Callback, fired when component is initialized.
+`onInitialize` | ```callback```, fired when component is initialized.
 
 
 ### Methods
