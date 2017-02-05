@@ -107,25 +107,17 @@
     function setRangeItemSize() {
         switch (this.options.orientation) {
             case 'horizontal':
+                this.options.itemWidth =
+                    this.element.clientWidth / this.options.range.size;
                 if(!this.options.hasOwnProperty('itemHeight')) {
-                    this.options.itemHeight =
-                        this.element.clientWidth / this.options.range.size;
-                }
-
-                if(!this.options.hasOwnProperty('itemWidth')) {
-                    this.options.itemWidth =
-                        this.element.clientWidth / this.options.range.size;
+                    this.options.itemHeight = this.options.itemWidth;
                 }
                 break;
             case 'vertical':
-                if(!this.options.hasOwnProperty('itemHeight')) {
-                    this.options.itemHeight =
-                        this.element.clientHeight / this.options.range.size;
-                }
-
+                this.options.itemHeight =
+                    this.element.clientHeight / this.options.range.size;
                 if(!this.options.hasOwnProperty('itemWidth')) {
-                    this.options.itemWidth =
-                        this.element.clientHeight / this.options.range.size;
+                    this.options.itemWidth = this.options.itemHeight;
                 }
                 break;
             default:
