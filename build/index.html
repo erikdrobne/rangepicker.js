@@ -8,14 +8,12 @@
 </head>
 
 <body>
-    <div id="rangePicker"></div>
+    <div style="height: 500px;">
+        <div id="rangePicker"></div>
+    </div>
     <script src="rangepicker.js"></script>
     <script>
         var rp = rangepicker(document.getElementById('rangePicker'), {});
-
-        rp.on('rp.change', function(value) {
-            console.log(value);
-        });
     </script>
 </body>
 
