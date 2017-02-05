@@ -32,7 +32,7 @@ Property | Description
 Option | Description
 --- | ---
 `range` | An object containing range options. It consists of ```size```, ```step``` and ```value``` parameters. |
-`disabled` | Default ```false```. If ```true``` component will be disabled.
+`disabled` | Default ```false```. If ```true```, component will be disabled.
 
 ### Methods
 
