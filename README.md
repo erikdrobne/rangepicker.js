@@ -49,10 +49,22 @@ Method | Description
 --- | ---
 `setValue(value)` | Sets given value. |
 `getValue()` | Returns the component current value. |
+`next()` | Sets next range value. |
+`prev()` | Sets previous range value. |
 `enable()` | Enables component. |
 `disable()` | Disables component. |
 `on(event, handler)` | Adds event listener. |
 
+### Events
+
+Event | Description
+--- | ---
+`rp.change` | Fired when value is changed. |
+
 ## Contribution
 
-Feel free to contribute.
+1. Fork it
+2. Create feature branch
+3. Commit changes
+4. Push to the branch
+5. Create new pull request

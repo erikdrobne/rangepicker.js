@@ -81,6 +81,24 @@
         }
     };
 
+    RangePicker.prototype.next = function() {
+        var range = this.options.range;
+        if(range.step * range.size !== range.value) {
+            range.value += range.step;
+            privateMethods.renderRangeValue();
+            this.element.dispatchEvent(privateMethods.getChangeEvent(range.value));
+        }
+    };
+
+    RangePicker.prototype.prev = function() {
+        var range = this.options.range;
+        if(range.value !== 0) {
+            range.value -= range.step;
+            privateMethods.renderRangeValue();
+            this.element.dispatchEvent(privateMethods.getChangeEvent(range.value));
+        }
+    };
+
     RangePicker.prototype.on = function(eventName, handler) {
         this.element.addEventListener(eventName, function(e) {
             handler(e.detail.value);
