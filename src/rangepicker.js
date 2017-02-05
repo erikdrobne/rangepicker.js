@@ -13,6 +13,7 @@
             step: 10,
             value: 40
         },
+        orientation: 'horizontal',
         disabled: false
     },
     namespace = 'rp',
@@ -45,6 +46,7 @@
 
         privateMethods.renderRangeValue = privateMethods.renderRangeValue.bind(this);
         privateMethods.setRangePicker.call(this);
+        privateMethods.setRangeItemSize = privateMethods.setRangeItemSize.call(this);
         privateMethods.renderRangeItems.call(this);
         privateMethods.renderRangeValue();
         privateMethods.handleTouchSelect.call(this);
@@ -86,6 +88,7 @@
     };
 
     var privateMethods = {
+        setRangeItemSize: setRangeItemSize,
         setRangePicker: setRangePicker,
         renderRangeItems: renderRangeItems,
         renderRangeValue: renderRangeValue,
@@ -97,11 +100,61 @@
         }
     };
 
+    /**
+     * calculate size options
+     *
+     */
+    function setRangeItemSize() {
+        switch (this.options.orientation) {
+            case 'horizontal':
+                if(!this.options.hasOwnProperty('itemHeight')) {
+                    this.options.itemHeight =
+                        this.element.clientWidth / this.options.range.size;
+                }
+
+                if(!this.options.hasOwnProperty('itemWidth')) {
+                    this.options.itemWidth =
+                        this.element.clientWidth / this.options.range.size;
+                }
+                break;
+            case 'vertical':
+                if(!this.options.hasOwnProperty('itemHeight')) {
+                    this.options.itemHeight =
+                        this.element.clientHeight / this.options.range.size;
+                }
+
+                if(!this.options.hasOwnProperty('itemWidth')) {
+                    this.options.itemWidth =
+                        this.element.clientHeight / this.options.range.size;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * set range picker properties
+     *
+     */
     function setRangePicker() {
         if(this.options.disabled === true) {
             this.element.classList.add(
                 this.constants.classes.rangepickerDisabled
             );
+        }
+
+        switch (this.options.orientation) {
+            case 'horizontal':
+                this.element.style.width = '100%';
+                this.element.style.height = 'auto';
+                break;
+            case 'vertical':
+                this.element.style.height = '100%';
+                this.element.style.width = 'auto';
+                break;
+            default:
+                break;
         }
     }
 
@@ -111,25 +164,32 @@
      */
     function renderRangeItems() {
         var i,
-            item,
-            itemWidth = this.element.clientWidth / this.options.range.size;
-
-        if(this.options.hasOwnProperty('height')) {
-            this.element.style.height = this.options.height + "px";
-        } else {
-            this.element.style.height = itemWidth + 'px';
-        }
-
+            item;
         for(i=0; i<this.options.range.size; i++) {
             item = document.createElement('div');
             item.setAttribute('data-value', (i + 1) * this.options.range.step);
             item.classList.add(this.constants.classes.rangeItem);
-            item.style.display = 'inline-block';
-            item.style.width = itemWidth + 'px';
-            item.style.height = this.element.clientHeight + 'px';
+            item.style.width = this.options.itemWidth + 'px';
+            item.style.height = this.options.itemHeight + 'px';
+
+            switch (this.options.orientation) {
+                case 'horizontal':
+                    item.style.display = 'inline-block';
+                    this.element.appendChild(item);
+                    break;
+                case 'vertical':
+                    item.style.display = 'block';
+                    if(this.element.hasChildNodes()) {
+                        this.element.insertBefore(item, this.element.firstChild);
+                    } else {
+                        this.element.appendChild(item);
+                    }
+                    break;
+                default:
+                    break;
+            }
             this.rangeItems.push(item);
             privateMethods.handleSelect.call(this, item);
-            this.element.appendChild(item);
         }
     }
 
