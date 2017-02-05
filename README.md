@@ -32,6 +32,7 @@ Property | Description
 Option | Description
 --- | ---
 `range` | An object containing range options. It consists of ```size```, ```step``` and ```value``` parameters. |
+`disabled` | Default ```false```. If ```true``` component will be disabled.
 
 ### Methods
 
@@ -41,6 +42,8 @@ Method | Description
 --- | ---
 `setValue(value)` | Sets given value. |
 `getValue()` | Returns the component current value. |
+`enable()` | Enables component. |
+`disable()` | Disables component. |
 `on(event, handler)` | Adds event listener. |
 
 ## Contribution
